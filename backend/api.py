@@ -38,6 +38,18 @@ def trigger_scrape(background_tasks: BackgroundTasks):
     background_tasks.add_task(run_daily_sync)
     return {"status": "success", "message": "Scraper execution scheduled in the background."}
 
+@app.get("/api/seed")
+def trigger_seed(background_tasks: BackgroundTasks):
+    """
+    Endpoint to seed historical mock data on the remote database.
+    """
+    try:
+        from backend.seed_mock_data import seed_data
+    except ModuleNotFoundError:
+        from seed_mock_data import seed_data
+    background_tasks.add_task(seed_data)
+    return {"status": "success", "message": "Database seeding scheduled in the background."}
+
 def get_latest_timestamps():
     query = "SELECT DISTINCT timestamp FROM inventory_snapshots ORDER BY timestamp DESC LIMIT 2"
     rows = execute_read(query)
