@@ -2,9 +2,9 @@ from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 try:
-    from backend.database import execute_read, init_db
+    from backend.database import execute_read, init_db, get_db_connection
 except ModuleNotFoundError:
-    from database import execute_read, init_db
+    from database import execute_read, init_db, get_db_connection
 
 app = FastAPI(title="Shopify Competitive Intelligence API")
 
