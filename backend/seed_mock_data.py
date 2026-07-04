@@ -1,6 +1,9 @@
 import random
 from datetime import datetime, timedelta
-from backend.database import init_db, insert_snapshot, get_db_connection
+try:
+    from backend.database import init_db, insert_snapshot, get_db_connection
+except ModuleNotFoundError:
+    from database import init_db, insert_snapshot, get_db_connection
 
 PRODUCTS_DATA = [
     {

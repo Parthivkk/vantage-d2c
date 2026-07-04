@@ -1,8 +1,12 @@
 import requests
 import logging
 from datetime import datetime
-from backend.database import init_db
-from backend.scraper import scrape_product
+try:
+    from backend.database import init_db
+    from backend.scraper import scrape_product
+except ModuleNotFoundError:
+    from database import init_db
+    from scraper import scrape_product
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)

@@ -5,7 +5,10 @@ import time
 import random
 from urllib.parse import urlparse
 import logging
-from backend.database import insert_snapshot
+try:
+    from backend.database import insert_snapshot
+except ModuleNotFoundError:
+    from database import insert_snapshot
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
