@@ -199,8 +199,15 @@ def get_dashboard_data(brand: str = Query(..., description="Brand to filter dash
                     
             chart_data = [temp_chart[ts] for ts in last_7_timestamps]
             
+    try:
+        dt = datetime.strptime(today_ts, "%Y-%m-%d %H:%M:%S")
+        last_checked_formatted = dt.strftime("%b %d, %I:%M %p")
+    except Exception:
+        last_checked_formatted = today_ts
+
     return {
         "metrics": metrics,
         "table_data": table_data,
-        "chart_data": chart_data
+        "chart_data": chart_data,
+        "last_checked": last_checked_formatted
     }

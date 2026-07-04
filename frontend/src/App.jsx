@@ -283,7 +283,7 @@ function App() {
               <RefreshCw className={`h-4.5 w-4.5 ${loading ? 'animate-spin text-amber-500' : 'group-hover:rotate-180 transition-transform duration-500'}`} />
             </button>
             <div className="text-xs text-zinc-500 text-right hidden sm:block">
-              <p>Last checked: <span className="text-zinc-300 font-semibold">Today, 11:59 PM</span></p>
+              <p>Last checked: <span className="text-zinc-300 font-semibold">{data?.last_checked || 'Today, 11:59 PM'}</span></p>
               <p className="text-[10px]">Shopify API Integration</p>
             </div>
           </div>
