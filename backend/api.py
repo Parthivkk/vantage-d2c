@@ -26,6 +26,7 @@ def on_startup():
     init_db()
 
 @app.post("/api/scrape")
+@app.get("/api/scrape")
 def trigger_scrape(background_tasks: BackgroundTasks):
     """
     Webhook to trigger daily inventory scraper in the background.
