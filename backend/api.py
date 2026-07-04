@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
-from database import execute_read
+from backend.database import execute_read, init_db
 
 app = FastAPI(title="Shopify Competitive Intelligence API")
 
@@ -14,12 +14,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+def on_startup():
+    """
+    Initialize database tables and indexes on application startup.
+    Works for both local SQLite and Supabase PostgreSQL.
+    """
+    init_db()
+
 @app.post("/api/scrape")
 def trigger_scrape(background_tasks: BackgroundTasks):
     """
     Webhook to trigger daily inventory scraper in the background.
     """
-    from scheduler import run_daily_sync
+    from backend.scheduler import run_daily_sync
     background_tasks.add_task(run_daily_sync)
     return {"status": "success", "message": "Scraper execution scheduled in the background."}
 

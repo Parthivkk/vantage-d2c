@@ -108,7 +108,7 @@ def seed_data():
         for var in product["variants"]:
             current_stocks[var["id"]] = var["init_stock"]
             
-    conn = get_db_connection()
+    conn, _ = get_db_connection()
     # Clear existing snapshots for a clean seed
     conn.execute("DELETE FROM inventory_snapshots")
     conn.commit()
