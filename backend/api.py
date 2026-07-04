@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
-from backend.database import execute_read
+from database import execute_read
 
 app = FastAPI(title="Shopify Competitive Intelligence API")
 
@@ -19,7 +19,7 @@ def trigger_scrape(background_tasks: BackgroundTasks):
     """
     Webhook to trigger daily inventory scraper in the background.
     """
-    from backend.scheduler import run_daily_sync
+    from scheduler import run_daily_sync
     background_tasks.add_task(run_daily_sync)
     return {"status": "success", "message": "Scraper execution scheduled in the background."}
 
