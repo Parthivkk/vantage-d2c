@@ -205,9 +205,12 @@ def get_dashboard_data(brand: str = Query(..., description="Brand to filter dash
     except Exception:
         last_checked_formatted = today_ts
 
+    _, db_type = get_db_connection()
+
     return {
         "metrics": metrics,
         "table_data": table_data,
         "chart_data": chart_data,
-        "last_checked": last_checked_formatted
+        "last_checked": last_checked_formatted,
+        "db_type": db_type
     }
